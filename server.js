@@ -55,7 +55,7 @@
 const express = require('express');
 const app = express();
 
-app.get('/2', (req, res) => {
+app.get('/', (req, res) => {
   console.log('it is working');
   res.send('ALEXANDER MSUMBA');
 });
@@ -70,9 +70,10 @@ const albumsData = [
     releaseDate: "2016-04-25T07:00:00Z",
     primaryGenreName: "Pop",
     url: "https://www.youtube.com/embed/PeonBmeFR8o?rel=0&amp;controls=0&amp;showinfo=0",
+
   },
   {
-    albumId: "12",
+    albumId: "11",
     artistName: "Beyoncé",
     collectionName: "Dangerously In Love",
     artworkUrl100:
@@ -87,8 +88,21 @@ app.get("/albums", function (req, res) {
   res.send(albumsData);
 });
 
+app.get("/albums/:albumId", (req, res) => {
+  const { albumId } = req.params;
 
+  const checkIdFound = albumsData.find(album => album.albumId === albumId);
+   
+  if(checkIdFound) {
+    res.json(checkIdFound)
+    
+  }else {
+    res.status(404).json({ msg:`Id of ${albumId} Not Found` })
+  }
+  
+
+} );
 
 app.listen(3000, () =>{
   console.log('Server is listening on Port 3000');
-})
+});

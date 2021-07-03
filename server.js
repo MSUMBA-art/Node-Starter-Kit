@@ -52,11 +52,18 @@
 // });
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
+
+app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
+
   console.log("it is working");
-  res.send("ALEXANDER MSUMBAqqqqqqqq");
+  res.send("ALEXANDER MSUMBA");
 });
 
 const albumsData = [
@@ -73,7 +80,7 @@ const albumsData = [
   {
     albumId: "11",
     artistName: "Beyoncé",
-    collectionName: "Dangerously In Lov",
+    collectionName: "Dangerously In Love",
     artworkUrl100:
       "http://is1.mzstatic.com/image/thumb/Music/v4/18/93/6d/18936d85-8f6b-7597-87ef-62c4c5211298/source/100x100bb.jpg",
     releaseDate: "2003-06-24T07:00:00Z",
@@ -94,10 +101,35 @@ app.get("/albums/:albumId", (req, res) => {
   if (checkIdFound) {
     res.json(checkIdFound);
   } else {
-    // res.status(404).json({ msg: `Id of ${albumId} Not FOOOOound` });
+    res.status(404).json({ msg: `Id of ${albumId} Not found` });
   }
 });
+
+app.post("/albums", (req, res) => {
+
+const newAlbum = {
+  ...req.body 
+}
+albumsData.push(newAlbum)
+  res.json(albumsData);
+});
+
+app.delete("/albums/:albumsId", (req, res) => {
+   const { albumId } = req.params;
+
+   const checkIdFound = albumsData.find((album) => album.albumId === albumId);
+   const deleteAlbum = albumsData.splice(checkIdFound, 1)
+
+   if(deleteAlbum) {
+     res.json({
+       msg `Id of ${albumId} Not found`
+     })
+   }
+
+})
 
 app.listen(3000, () => {
   console.log("Server is listening on Port: 3000");
 });
+
+

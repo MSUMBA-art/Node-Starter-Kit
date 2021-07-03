@@ -7,12 +7,12 @@
 //   res.send("Hello World!");
 // });
 
-// // listen for request 
+// // listen for request
 // app.listen(3000, function(){
 //     console.log('Server is listening');
 // });
 
-// // handle request 
+// // handle request
 
 // const { response, request } = require("express");
 // const express = require("express");
@@ -45,19 +45,18 @@
 // const body = request.body
 // });
 
-
 // app.get("/", function (req, res) {
 //     co
 //   let searchQuery = req.query.search;
 //   res.send("Hello World! You searched for " + searchQuery);
 // });
 
-const express = require('express');
+const express = require("express");
 const app = express();
 
-app.get('/', (req, res) => {
-  console.log('it is working');
-  res.send('ALEXANDER MSUMBA');
+app.get("/", (req, res) => {
+  console.log("it is working");
+  res.send("ALEXANDER MSUMBAqqqqqqqq");
 });
 
 const albumsData = [
@@ -70,12 +69,11 @@ const albumsData = [
     releaseDate: "2016-04-25T07:00:00Z",
     primaryGenreName: "Pop",
     url: "https://www.youtube.com/embed/PeonBmeFR8o?rel=0&amp;controls=0&amp;showinfo=0",
-
   },
   {
     albumId: "11",
     artistName: "Beyoncé",
-    collectionName: "Dangerously In Love",
+    collectionName: "Dangerously In Lov",
     artworkUrl100:
       "http://is1.mzstatic.com/image/thumb/Music/v4/18/93/6d/18936d85-8f6b-7597-87ef-62c4c5211298/source/100x100bb.jpg",
     releaseDate: "2003-06-24T07:00:00Z",
@@ -91,18 +89,15 @@ app.get("/albums", function (req, res) {
 app.get("/albums/:albumId", (req, res) => {
   const { albumId } = req.params;
 
-  const checkIdFound = albumsData.find(album => album.albumId === albumId);
-   
-  if(checkIdFound) {
-    res.json(checkIdFound)
-    
-  }else {
-    res.status(404).json({ msg:`Id of ${albumId} Not Found` })
+  const checkIdFound = albumsData.find((album) => album.albumId === albumId);
+
+  if (checkIdFound) {
+    res.json(checkIdFound);
+  } else {
+    // res.status(404).json({ msg: `Id of ${albumId} Not FOOOOound` });
   }
-  
+});
 
-} );
-
-app.listen(3000, () =>{
-  console.log('Server is listening on Port 3000');
+app.listen(3000, () => {
+  console.log("Server is listening on Port: 3000");
 });

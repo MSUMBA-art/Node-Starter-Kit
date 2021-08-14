@@ -66,7 +66,7 @@ app.get("/", (req, res) => {
   res.send("ALEXANDER MSUMBA");
 });
 
-const albumsData = [
+let albumsData = [
   {
     albumId: "10",
     artistName: "Beyoncé",
@@ -118,12 +118,11 @@ app.delete("/albums/:albumsId", (req, res) => {
    const { albumId } = req.params;
 
    const checkIdFound = albumsData.find((album) => album.albumId === albumId);
-   const deleteAlbum = albumsData.splice(checkIdFound, 1)
+   
 
-   if(deleteAlbum) {
-     res.json({
-       msg `Id of ${albumId} Not found`
-     })
+   if(checkIdFound) {
+     albumsData = albumsData.filter(album => album.albumId !== albumId);
+     
    }
 
 })
